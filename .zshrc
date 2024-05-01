@@ -3,7 +3,7 @@ autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
 
 # History
-HISTFILE="$HOME/.zsh_history"
+HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
 HISTSIZE=10000000
 SAVEHIST=10000000
 
@@ -20,13 +20,15 @@ setopt INC_APPEND_HISTORY
 setopt SHARE_HISTORY
 
 # Prompts
-if [[ ! -d ".zsh.d/prompts" ]]; then
-    mkdir -p .zsh.d/prompts
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git .zsh.d/prompts/powerlevel10k
-    ln -s powerlevel10k/prompt_powerlevel10k_setup .zsh.d/prompts/prompt_powerlevel10k_setup
+ZPROMPTDIR="${ZDOTDIR:-$HOME/.config/zsh}/prompts"
+
+if [[ ! -d "${ZPROMPTDIR}" ]]; then
+    mkdir -p ${ZPROMPTDIR}
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZPROMPTDIR}/powerlevel10k
+    ln -s powerlevel10k/prompt_powerlevel10k_setup ${ZPROMPTDIR}/prompt_powerlevel10k_setup
 fi
 
-fpath=(.zsh.d/prompts $fpath)
+fpath=(${ZPROMPTDIR} $fpath)
 setopt PROMPT_SUBST
 
 autoload -Uz promptinit && promptinit
@@ -34,7 +36,7 @@ autoload -Uz promptinit && promptinit
 prompt powerlevel10k
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+[[ ! -f ${ZDOTDIR:-$HOME}/.p10k.zsh ]] || source ${ZDOTDIR:-$HOME}/.p10k.zsh
 
 # Key Bindings
 # create a zkbd compatible hash;
@@ -92,8 +94,22 @@ key[Control-Right]="${terminfo[kRIT5]}"
 [[ -n "${key[Control-Right]}" ]] && bindkey -- "${key[Control-Right]}" forward-word
 
 # Plugins
-if [[ -d ".zsh.d/plugins" ]]; then
-    for ZSH_FILE in .zsh.d/plugins/*.zsh(N); do
-        source "${ZSH_FILE}"
-    done
+# where do you want to store your plugins?
+ZPLUGINDIR=${ZPLUGINDIR:-${ZDOTDIR:-$HOME/.config/zsh}/plugins}
+
+# get zsh_unplugged and store it with your other plugins
+if [[ ! -d $ZPLUGINDIR/zsh_unplugged ]]; then
+  git clone --quiet https://github.com/mattmc3/zsh_unplugged $ZPLUGINDIR/zsh_unplugged
 fi
+source $ZPLUGINDIR/zsh_unplugged/zsh_unplugged.zsh
+
+# make list of the Zsh plugins you use
+repos=(
+  zsh-users/zsh-completions
+  zsh-users/zsh-syntax-highlighting
+  zsh-users/zsh-history-substring-search
+  zsh-users/zsh-autosuggestions
+)
+
+# now load your plugins
+plugin-load $repos
