@@ -4,8 +4,8 @@ zstyle ':completion:*' menu select
 
 # History
 HISTFILE="${ZDOTDIR:-$HOME}/.zsh_history"
-HISTSIZE=10000000
-SAVEHIST=10000000
+HISTSIZE=100000000
+SAVEHIST=100000000
 
 setopt HIST_EXPIRE_DUPS_FIRST
 setopt HIST_FIND_NO_DUPS
@@ -24,19 +24,25 @@ ZPROMPTDIR="${ZDOTDIR:-$HOME/.config/zsh}/prompts"
 
 if [[ ! -d "${ZPROMPTDIR}" ]]; then
     mkdir -p ${ZPROMPTDIR}
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZPROMPTDIR}/powerlevel10k
-    ln -s powerlevel10k/prompt_powerlevel10k_setup ${ZPROMPTDIR}/prompt_powerlevel10k_setup
+    fpath+=${ZPROMPTDIR}
+    # ln -s powerlevel10k/prompt_powerlevel10k_setup ${ZPROMPTDIR}/prompt_powerlevel10k_setup
 fi
 
-fpath=(${ZPROMPTDIR} $fpath)
+if [[ ! -d "${ZPROMPTDIR}/pure" ]]; then
+    git clone https://github.com/sindresorhus/pure.git ${ZPROMPTDIR}/pure
+fi
+
+for SUBDIR in ${ZPROMPTDIR}/*; do
+  if [[ -d "${SUBDIR}" ]]; then
+    fpath+=${SUBDIR}
+  fi
+done
+
 setopt PROMPT_SUBST
 
 autoload -Uz promptinit && promptinit
 
-prompt powerlevel10k
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ${ZDOTDIR:-$HOME}/.p10k.zsh ]] || source ${ZDOTDIR:-$HOME}/.p10k.zsh
+prompt pure
 
 # Key Bindings
 # create a zkbd compatible hash;
