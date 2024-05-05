@@ -119,3 +119,6 @@ repos=(
 
 # now load your plugins
 plugin-load $repos
+
+# direnv hook
+eval "$(direnv hook zsh)"
