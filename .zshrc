@@ -122,3 +122,6 @@ plugin-load $repos
 
 # direnv hook
 eval "$(direnv hook zsh)"
+
+# zoxide init
+eval "$(zoxide init zsh)"
