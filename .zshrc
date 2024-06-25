@@ -120,6 +120,9 @@ repos=(
 # now load your plugins
 plugin-load $repos
 
+# Aliases
+alias cd="z"
+
 # direnv hook
 eval "$(direnv hook zsh)"
 
