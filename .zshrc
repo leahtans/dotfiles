@@ -1,3 +1,5 @@
+export ZDOTDIR=$HOME/.config/zsh
+
 # Completion
 autoload -Uz compinit && compinit
 zstyle ':completion:*' menu select
@@ -20,7 +22,8 @@ setopt INC_APPEND_HISTORY
 setopt SHARE_HISTORY
 
 # Prompts
-ZPROMPTDIR="${ZDOTDIR:-$HOME/.config/zsh}/prompts"
+ZPROMPTDIR="${ZPROMPTDIR:-${ZDOTDIR:-$HOME}}/prompts"
+export ZPROMPTDIR=$ZPROMPTDIR
 
 if [[ ! -d "${ZPROMPTDIR}" ]]; then
     mkdir -p ${ZPROMPTDIR}
@@ -99,9 +102,19 @@ key[Control-Right]="${terminfo[kRIT5]}"
 [[ -n "${key[Control-Left]}"  ]] && bindkey -- "${key[Control-Left]}"  backward-word
 [[ -n "${key[Control-Right]}" ]] && bindkey -- "${key[Control-Right]}" forward-word
 
+# Aliases
+alias cd="z"
+alias ls="ls --color=auto"
+alias dir='dir --color=auto'
+alias vdir='vdir --color=auto'
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias rg='rg --color=auto'
+
 # Plugins
 # where do you want to store your plugins?
-ZPLUGINDIR=${ZPLUGINDIR:-${ZDOTDIR:-$HOME/.config/zsh}/plugins}
+ZPLUGINDIR=${ZPLUGINDIR:-${ZDOTDIR:-$HOME}/plugins}
 
 # get zsh_unplugged and store it with your other plugins
 if [[ ! -d $ZPLUGINDIR/zsh_unplugged ]]; then
@@ -119,9 +132,6 @@ repos=(
 
 # now load your plugins
 plugin-load $repos
-
-# Aliases
-alias cd="z"
 
 # direnv hook
 eval "$(direnv hook zsh)"
