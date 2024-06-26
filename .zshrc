@@ -1,4 +1,9 @@
-export ZDOTDIR=$HOME/.config/zsh
+typeset -U path cdpath fpath manpath
+
+# Nix
+for profile in ${(z)NIX_PROFILES}; do
+  fpath+=($profile/share/zsh/site-functions $profile/share/zsh/$ZSH_VERSION/functions $profile/share/zsh/vendor-completions)
+done
 
 # Completion
 autoload -Uz compinit && compinit
