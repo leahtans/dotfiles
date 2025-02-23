@@ -52,6 +52,9 @@ autoload -Uz promptinit && promptinit
 
 prompt pure
 
+# Combining Characters
+setopt COMBINING_CHARS
+
 # Key Bindings
 # create a zkbd compatible hash;
 # to add other keys to this hash, see: man 5 terminfo
