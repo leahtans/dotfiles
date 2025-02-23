@@ -23,4 +23,5 @@ _darcs
 
 # Custom
 
+\.stow-global-ignore
 install.sh
