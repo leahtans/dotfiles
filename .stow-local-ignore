@@ -23,5 +23,6 @@ _darcs
 
 # Custom
 
-\.stow-global-ignore
+\.stow-local-ignore
 install.sh
+notes.md
