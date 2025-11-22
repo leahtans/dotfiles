@@ -4,6 +4,6 @@ setopt NO_GLOBAL_RCS
 unset ZPROMPTDIR
 unset ZPLUGINDIR
 
-#typeset -U path PATH
-#path=($HOME/.local/bin $path)
-#export PATH
+typeset -U path PATH
+path+=($HOME/.local/bin)
+export PATH
