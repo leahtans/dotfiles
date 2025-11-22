@@ -1,3 +1,4 @@
 # Zsh
-.zsh.d
 .zshenv-secret
+**/zsh/plugins
+**/zsh/prompts
