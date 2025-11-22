@@ -2,4 +2,15 @@
     "editor.fontFamily": "'FiraCode Nerd Font'",
     "editor.fontLigatures": false,
     "workbench.colorTheme": "Ayu Dark Bordered",
+    "diffEditor.maxComputationTime": 0,
+    "xml.server.vmargs": "-Xmx1G -XX:+UseG1GC -XX:+UseStringDeduplication",
+    "[typescript]": {
+        "editor.defaultFormatter": "vscode.typescript-language-features"
+    },
+    "[html]": {
+        "editor.defaultFormatter": "vscode.html-language-features"
+    },
+    "[scss]": {
+        "editor.defaultFormatter": "vscode.css-language-features"
+    },
 }
