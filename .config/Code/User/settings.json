@@ -1,7 +1,7 @@
 {
     "editor.fontFamily": "'FiraCode Nerd Font'",
     "editor.fontLigatures": false,
-    "workbench.colorTheme": "Ayu Dark Bordered",
+    "workbench.colorTheme": "Ayu Dark",
     "diffEditor.maxComputationTime": 0,
     "xml.server.vmargs": "-Xmx1G -XX:+UseG1GC -XX:+UseStringDeduplication",
     "[typescript]": {
@@ -13,4 +13,12 @@
     "[scss]": {
         "editor.defaultFormatter": "vscode.css-language-features"
     },
+    "vim.handleKeys": {
+        "<C-d>": true,
+        "<C-s>": false,
+        "<C-z>": false,
+        "<C-p>": false
+    },
+    "vim.leader": "<space>",
+    "vim.enableNeovim": true,
 }
