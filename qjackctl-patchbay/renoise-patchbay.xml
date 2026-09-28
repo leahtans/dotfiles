@@ -1,0 +1,29 @@
+<!DOCTYPE patchbay>
+<patchbay name="renoise-patchbay" version="1.0.6">
+ <output-sockets>
+  <socket client="renoise" exclusive="on" name="renoise" type="jack-audio">
+   <plug>output_01_left</plug>
+   <plug>output_01_right</plug>
+  </socket>
+  <socket client="jack_mixer" exclusive="off" name="jack_mixer_out" type="jack-audio">
+   <plug>Renoise\ Out\ L</plug>
+   <plug>Renoise\ Out\ R</plug>
+  </socket>
+ </output-sockets>
+ <input-sockets>
+  <socket client="jack_mixer" exclusive="off" name="jack_mixer_in" type="jack-audio">
+   <plug>Renoise\ L</plug>
+   <plug>Renoise\ R</plug>
+  </socket>
+  <socket client="Ryzen\ HD\ Audio\ Controller\ Analog\ Stereo" exclusive="off" name="headphones" type="jack-audio">
+   <plug>playback_FL</plug>
+   <plug>playback_FR</plug>
+  </socket>
+ </input-sockets>
+ <slots/>
+ <cables>
+  <cable input="jack_mixer_in" output="renoise" type="jack-audio"/>
+  <cable input="headphones" output="jack_mixer_out" type="jack-audio"/>
+ </cables>
+</patchbay>
+
